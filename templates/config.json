@@ -1,0 +1,53 @@
+{
+  "type": "network",
+  "version": "1.0",
+  "data": "data.json",
+  "logo": {
+    "text": "Nikhil Karnik",
+    "file": "",
+    "link": ""
+  },
+  "text": {
+    "title": "Rap Network",
+    "more": "",
+    "intro": ""
+  },
+  "legend": {
+    "edgeLabel": "Collaborations",
+    "colorLabel": "Pagerank",
+    "nodeLabel": "Artist"
+  },
+  "features": {
+    "search": true,
+    "groupSelectorAttribute": "Id",
+    "hoverBehavior": "default"
+  },
+  "informationPanel": {
+    "imageAttribute": "Id",
+    "groupByEdgeDirection": false
+  },
+  "sigma": {
+    "graphProperties": {
+      "minEdgeSize": 1,
+      "maxNodeSize": 10,
+      "maxEdgeSize": 7,
+      "minNodeSize": 2
+    },
+    "drawingProperties": {
+      "labelThreshold": 4.7,
+      "hoverFontStyle": "bold",
+      "defaultEdgeType": "curve",
+      "defaultLabelColor": "#000",
+      "defaultLabelHoverColor": "#fff",
+      "defaultLabelSize": 14,
+      "activeFontStyle": "bold",
+      "fontStyle": "bold",
+      "defaultHoverLabelBGColor": "#002147",
+      "defaultLabelBGColor": "#ddd"
+    },
+    "mouseProperties": {
+      "minRatio": 0.75,
+      "maxRatio": 20
+    }
+  }
+}
