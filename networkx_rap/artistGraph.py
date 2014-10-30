@@ -73,8 +73,7 @@ def artistGraph(songs):
     return graph
     
 def subGraph(songs):
-"""First add nodes, then add combinations of edges.
-"""
+    #First add nodes, then add combinations of edges.
     graph = nx.Graph()
     for song in songs:
         #Add artists and producers as nodes
@@ -98,10 +97,9 @@ def subGraph(songs):
                 
                 
     #Select only artists with more than 90 songs or producers with more than 50 songs
-    best = [n for n in graph.nodes_iter(data=True) if (n[1]['songs'] > 90 or n[1]['productions'] > 50)]        
+    best = [n for n in graph.nodes_iter(data=True) if (n[1]['songs'] > 150 or n[1]['productions'] > 90)]        
     graph = nx.Graph()
     graph.add_nodes_from(best)
-    graph.remove_node('Nipsey Hu$$le')
     
     for song in songs:
         #make connections (Edges) for each song
@@ -210,11 +208,13 @@ def plotGraph(g,filename):
     pos = nx.spring_layout(mst, iterations=900, k=.008, weight='difference')
 
     mst_edges = list(nx.minimum_spanning_edges(g, weight='difference'))
+    degs = mst.degree()
+    nodesize = [degs[v]*80 for v in mst]
 
     nl = mst.nodes()
 
     nx.draw_networkx_edges(g, pos, edgelist=mst_edges, alpha=.2)
-    nx.draw_networkx_nodes(g, pos, nodelist = nl, node_size=60)
+    nx.draw_networkx_nodes(g, pos, nodelist = nl, node_size=nodesize, node_color=nodesize)
 
         
     nx.draw_networkx_labels(g, pos, font_color='k', font_size=7)
