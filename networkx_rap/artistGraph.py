@@ -223,6 +223,21 @@ def plotGraph(g,filename):
     plt.xticks([])
     plt.yticks([])
     plt.savefig(filename)
-    
-#best = [n for n in g.nodes_iter(data=True) if (n[1]['songs'] > 90 or n[1]['productions'] > 50)]
-#top = [e for e in g.edges_iter(data=True) if e[2]['weight'] > 10]
+
+class artist:
+
+    def __init__(self, name, url):
+        self.name = name
+        self.url = url
+
+
+class song:
+
+    def __init__(self, name, url):
+        self.name = name
+        self.url = url
+        self.artist = None
+        self.featuredArtists = []
+        self.producers = []
+        self.year = 0
+        self.lyrics = "" 
