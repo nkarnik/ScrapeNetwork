@@ -15,6 +15,11 @@ from urlparse import parse_qs, urlsplit
 
 
 def getMostArtistSongs(url):
+"""
+Input url is the link to the artist's homepage on RapGenius
+Output is a list of urls to each individual song (this requires paginating through the js)
+"""
+
     soup = BeautifulSoup(requests.get(url).text)
     songs = []
     for row in soup.findAll('ul', class_='song_list primary_list '):
@@ -45,15 +50,20 @@ def getMostArtistSongs(url):
               page = BeautifulSoup(r)
               for pageRow in page.find('ul', class_='song_list primary_list '):
                   if(type(pageRow.find('span'))!=int):
-                      #print ''.join(pageRow.find('span').findAll(text=True)).strip()
                       songs.append(pageRow.find('a').get('href'))
-        except:
-            print "error somewhere"
+
+        except Exception as e:
+            print e.message
 
     return songs
 
 
 def setSong(url):
+"""
+This function takes a song url as input and outputs
+all of the metadata of that song by scraping the RapGenius
+html formatting.
+"""
     soup = BeautifulSoup(requests.get(url).text)
     featured = []
     producers = []
