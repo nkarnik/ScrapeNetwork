@@ -1,16 +1,23 @@
+"""
+This script is for taking a pickled list of songs (with nested metadata) and 
+transforming it into a proper networkx graph.
+
+Author: Nikhil Karnik
+"""
+
+import sys
 import networkx as nx
 import numpy as np
 import pickle
 import matplotlib
 import itertools
 
-#matplotlib.use('Agg')
-
 import matplotlib.pyplot as plt
 
-songs = pickle.load(open('songs.p'))
-
 def artistGraph(songs):
+"""
+Create graph with all songs in pickled file
+"""
     graph = nx.Graph()
     for song in songs:
         #Add artists and producers as nodes
@@ -73,6 +80,12 @@ def artistGraph(songs):
     return graph
     
 def subGraph(songs):
+"""
+Copies code and functionality of artistGraph (unnecessarily, but alas...)
+but limits to artists with > 90 songs and producers with > 50 songs.
+These numbers are pretty arbitrary and were selected for the purpose of
+limiting the number of nodes and edges to something visually managable
+"""
     #First add nodes, then add combinations of edges.
     graph = nx.Graph()
     for song in songs:
@@ -136,7 +149,7 @@ def subGraph(songs):
                 
             
         for f in features:
-        #Ignore artists that only have featured credits
+        #Add and increment featured artists edges
             try:
                 graph.node[f]
                 graph.node[f]['features'] += 1
@@ -149,6 +162,7 @@ def subGraph(songs):
                 except KeyError:
                     graph.add_edge(artist, f, weight=1, difference=1)
             
+            #Ignore artists that only have featured credits
             except KeyError:
                 pass
         
@@ -202,6 +216,12 @@ def subGraph(songs):
     
     
 def plotGraph(g,filename):
+"""
+Creates a plot of the graph passed in after transforming
+the full graph into a minimum spanning tree. The MST of a graph
+like this has some significance (but also some locally strange paths)
+and is nice to look add due to the reduced edge density.
+"""
     plt.figure(figsize=(15, 10))
     np.random.seed(5)
     mst = nx.minimum_spanning_tree(g, weight='difference')
@@ -240,4 +260,15 @@ class song:
         self.featuredArtists = []
         self.producers = []
         self.year = 0
-        self.lyrics = "" 
+        self.lyrics = ""
+
+if __name__ == "__main__":
+ 
+  #Set input and output files and load input file
+  inputPickleFile = sys.argv[1]
+  outputGraphPNG = sys.argv[2]
+  songs = pickle.load(open(inputPickleFile))
+
+  #generate graph and output plotted PNG output
+  rapGraph = subGraph(songs)
+  plotGraph(rapGraph,outputGraphPNG) 
