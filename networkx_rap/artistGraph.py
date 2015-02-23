@@ -15,9 +15,9 @@ import itertools
 import matplotlib.pyplot as plt
 
 def artistGraph(songs):
-"""
-Create graph with all songs in pickled file
-"""
+    """
+    Create graph with all songs in pickled file
+    """
     graph = nx.Graph()
     for song in songs:
         #Add artists and producers as nodes
@@ -80,12 +80,13 @@ Create graph with all songs in pickled file
     return graph
     
 def subGraph(songs):
-"""
-Copies code and functionality of artistGraph (unnecessarily, but alas...)
-but limits to artists with > 90 songs and producers with > 50 songs.
-These numbers are pretty arbitrary and were selected for the purpose of
-limiting the number of nodes and edges to something visually managable
-"""
+    """
+    Copies code and functionality of artistGraph (unnecessarily, but alas...)
+    but limits to artists with > 90 songs and producers with > 50 songs.
+    These numbers are pretty arbitrary and were selected for the purpose of
+    limiting the number of nodes and edges to something visually managable
+    """
+
     #First add nodes, then add combinations of edges.
     graph = nx.Graph()
     for song in songs:
@@ -146,8 +147,7 @@ limiting the number of nodes and edges to something visually managable
             
         except KeyError:
             continue
-                
-            
+                           
         for f in features:
         #Add and increment featured artists edges
             try:
@@ -216,12 +216,13 @@ limiting the number of nodes and edges to something visually managable
     
     
 def plotGraph(g,filename):
-"""
-Creates a plot of the graph passed in after transforming
-the full graph into a minimum spanning tree. The MST of a graph
-like this has some significance (but also some locally strange paths)
-and is nice to look add due to the reduced edge density.
-"""
+    """
+    Creates a plot of the graph passed in after transforming
+    the full graph into a minimum spanning tree. The MST of a graph
+    like this has some significance (but also some locally strange paths)
+    and is nice to look add due to the reduced edge density.
+    """
+
     plt.figure(figsize=(15, 10))
     np.random.seed(5)
     mst = nx.minimum_spanning_tree(g, weight='difference')

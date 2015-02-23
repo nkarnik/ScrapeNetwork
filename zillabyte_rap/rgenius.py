@@ -1,8 +1,8 @@
-#
-# Nikhil Karnik
-# rapgenius.py
-# API for scraping data from RapGenius
-#
+"""
+Nikhil Karnik
+rapgenius.py
+API for scraping data from RapGenius
+"""
 
 
 RAPGENIUS_URL = 'http://rap.genius.com'
@@ -15,10 +15,10 @@ from urlparse import parse_qs, urlsplit
 
 
 def getMostArtistSongs(url):
-"""
-Input url is the link to the artist's homepage on RapGenius
-Output is a list of urls to each individual song (this requires paginating through the js)
-"""
+   """
+   Input url is the link to the artist's homepage on RapGenius
+   Output is a list of urls to each individual song (this requires paginating through the js)
+   """
 
     soup = BeautifulSoup(requests.get(url).text)
     songs = []
@@ -59,11 +59,11 @@ Output is a list of urls to each individual song (this requires paginating throu
 
 
 def setSong(url):
-"""
-This function takes a song url as input and outputs
-all of the metadata of that song by scraping the RapGenius
-html formatting.
-"""
+    """
+    This function takes a song url as input and outputs
+    all of the metadata of that song by scraping the RapGenius
+    html formatting.
+    """
     soup = BeautifulSoup(requests.get(url).text)
     featured = []
     producers = []
